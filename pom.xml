@@ -60,6 +60,7 @@
 		</dependency>
 		<!-- We hebben dit project gegenereerd met spring initializr. Daar zaten niet alle dependencies in. We willen
 		namelijk ook van JSON web token gebruik maken. Deze is hieronder handmatig toegevoegd. -->
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
