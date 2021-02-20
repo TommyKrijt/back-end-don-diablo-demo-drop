@@ -1,6 +1,7 @@
 package nl.novi.krijt.controller;
 
-import nl.novi.krijt.service.UploadService;
+import nl.novi.krijt.payload.response.UploadFileResponse;
+import nl.novi.krijt.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,23 +9,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
-
-public class UploadController {
+public class FileController {
 
     @Autowired
-    UploadService fileUploadService;
+    private FileStorageService fileStorageService;
 
     @PostMapping("/upload")
-    public void uploadFile(MultipartFile file) throws IOException {
-        fileUploadService.uploadFile(file);
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+        String fileName = fileStorageService.storeFile(file);
+        return new UploadFileResponse(fileName, file.getContentType(), file.getSize());
     }
+
+
+
+
+    //    @Autowired
+//    private UploadService uploadService;
+//
+//    @PostMapping("/upload")
+//    public void uploadFile(MultipartFile file) throws IOException {
+//        uploadService.uploadFile(file);
+//    }
 
 
 //    @PostMapping("/upload")
