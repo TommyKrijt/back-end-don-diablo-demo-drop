@@ -1,8 +1,8 @@
 package nl.novi.krijt.service;
 
 import nl.novi.krijt.domain.User;
-import nl.novi.krijt.execption.DatabaseErrorException;
-import nl.novi.krijt.execption.RecordNotFoundException;
+import nl.novi.krijt.exception.DatabaseErrorException;
+import nl.novi.krijt.exception.RecordNotFoundException;
 import nl.novi.krijt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

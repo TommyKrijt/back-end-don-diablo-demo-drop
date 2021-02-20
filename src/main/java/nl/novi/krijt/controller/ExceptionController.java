@@ -1,7 +1,7 @@
 package nl.novi.krijt.controller;
 
-import nl.novi.krijt.execption.DatabaseErrorException;
-import nl.novi.krijt.execption.RecordNotFoundException;
+import nl.novi.krijt.exception.DatabaseErrorException;
+import nl.novi.krijt.exception.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,6 +1,6 @@
 package nl.novi.krijt.service;
 
-import nl.novi.krijt.execption.FileStorageException;
+import nl.novi.krijt.exception.FileStorageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

@@ -1,6 +1,4 @@
-package nl.novi.krijt.execption;
-
-import java.io.IOException;
+package nl.novi.krijt.exception;
 
 public class FileStorageException extends RuntimeException {
     public FileStorageException(String message) {
