@@ -10,22 +10,21 @@ import java.io.File;
 
 @Entity
 @Table(name = "app_file")
-public class Upload {
+public class FileUpload {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
-
-    @Column(name = "file_name")
     private String filename;
+    File file;
 
-    @Column(name = "file_upload")
-    File upload;
-
-    public Upload(Long id, String filename, File upload) {
-        this.id = id;
+    public FileUpload(String filename, java.io.File file) {
         this.filename = filename;
-        this.upload = upload;
+        this.file = file;
+    }
+
+    public FileUpload() {
     }
 
     public Long getId() {
@@ -44,11 +43,11 @@ public class Upload {
         this.filename = filename;
     }
 
-    public File getUpload() {
-        return upload;
+    public java.io.File getFile() {
+        return file;
     }
 
-    public void setUpload(File upload) {
-        this.upload = upload;
+    public void setFile(java.io.File upload) {
+        this.file = upload;
     }
 }
