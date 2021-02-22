@@ -2,7 +2,7 @@ package nl.novi.krijt.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public interface FileStorageService {
+public interface FileUploadStorageService {
 
     void fileStorageService();
     String storeFile(MultipartFile file);

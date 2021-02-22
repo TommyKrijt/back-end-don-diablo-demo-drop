@@ -1,12 +1,16 @@
 package nl.novi.krijt.exception;
 
 public class FileStorageException extends RuntimeException {
-    public FileStorageException(String message) {
-        super(message);
+
+    private static final long serialVersionUID = 1L;
+    private String msg;
+
+    public FileStorageException(String msg, Exception exception) {
+        this.msg = msg;
     }
 
-    public FileStorageException(String message, Throwable cause) {
-        super(message, cause);
+    public String getMsg() {
+        return msg;
     }
 }
 
