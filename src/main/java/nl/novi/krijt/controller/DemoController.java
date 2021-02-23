@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,10 +35,10 @@ public class DemoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, Principal principal) {
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, Principal principal, Demo demo) {
         try {
             storageService.saveDemo(file);
-
+            storageService.saveDemoToUser(demo, principal);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(String.format("File uploaded successfully: %s", file.getOriginalFilename()));
         } catch (Exception e) {
@@ -57,9 +58,9 @@ public class DemoController {
     private DemoResponse mapToFileResponse(Demo demoFiles) {
         String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/files/")
-                .path(demoFiles.getId())
+                .path(String.valueOf(demoFiles.getId()))
                 .toUriString();
-        DemoResponse fileResponse = new DemoResponse("","","",0,"","");
+        DemoResponse fileResponse = new DemoResponse("","","",0,0,"");
         fileResponse.setId(demoFiles.getId());
         fileResponse.setName(demoFiles.getName());
         fileResponse.setContenttype(demoFiles.getContentType());
@@ -85,6 +86,12 @@ public class DemoController {
 //                .body(demoFiles.getData());
                 .body(demoFiles.getDirectory());
     }
+
+//    @PostMapping("/files")
+//    public ResponseEntity<Object> saveDemoToUser(@RequestBody Demo demo, Principal principal) {
+//        long newId = storageService.saveDemoToUser(demo, principal);
+//        return new ResponseEntity<>(newId, HttpStatus.CREATED);
+//    }
 
 }
 

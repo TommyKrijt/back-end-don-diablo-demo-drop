@@ -36,6 +36,10 @@ public class Upload {
     private String message;
     private String uploadFile; // This will be of type FileUpload @OneToOne
 
+    @OneToOne
+    @JoinColumn(name = "demo_id ")
+    private Demo demo;
+
     public Upload() {
 
     }
@@ -95,4 +99,6 @@ public class Upload {
     public void setMessage(String message) {
         this.message = message;
     }
+
+
 }

@@ -1,8 +1,11 @@
 package nl.novi.krijt.service;
 
 import nl.novi.krijt.domain.Demo;
+import nl.novi.krijt.domain.User;
 import nl.novi.krijt.repository.DemoRepository;
+import nl.novi.krijt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +22,9 @@ import java.util.Optional;
 public class DemoStorageService {
 
     private static DemoRepository demoRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     public DemoStorageService(DemoRepository demoRepository) {
@@ -45,6 +52,14 @@ public class DemoStorageService {
 
     public List<Demo> getAllFiles() {
         return demoRepository.findAll();
+    }
+
+    public long saveDemoToUser(Demo demo, Principal principal) {
+        String currentUser = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getUsername();
+        Optional<User> userOptional = userRepository.findByUsername(currentUser);
+        demo.setUser((userOptional.get()));
+
+        return demoRepository.save(demo).getId();
     }
 }
 

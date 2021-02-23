@@ -6,10 +6,10 @@ public class DemoResponse {
     private String url;
     private String type;
     private long size;
-    private String id;
+    private long id;
     private String contenttype;
 
-    public DemoResponse(String name, String url, String type, long size, String id, String contenttype) {
+    public DemoResponse(String name, String url, String type, long size, long id, String contenttype) {
         this.name = name;
         this.url = url;
         this.type = type;
@@ -22,11 +22,11 @@ public class DemoResponse {
         return name;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

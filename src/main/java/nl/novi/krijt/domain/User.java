@@ -4,13 +4,16 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,6 +40,10 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<Demo> demos;
 
     public User() {
 
@@ -86,5 +93,17 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Demo> getDemos() {
+        return demos;
+    }
+
+    public void setDemos(List<Demo> demos) {
+        this.demos = demos;
+    }
+
+    public void addDemo(Demo demo) {
+        demos.add(demo);
     }
 }
