@@ -2,7 +2,7 @@ package nl.novi.krijt.controller;
 
 import nl.novi.krijt.domain.Demo;
 import nl.novi.krijt.payload.response.DemoResponse;
-import nl.novi.krijt.service.DemoStorageService;
+import nl.novi.krijt.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,18 +26,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/files")
 public class DemoController {
 
-    private final DemoStorageService storageService;
+    private final DemoService demoService;
 
     @Autowired
-    public DemoController(DemoStorageService storageService) {
-        this.storageService = storageService;
+    public DemoController(DemoService demoService) {
+        this.demoService = demoService;
     }
 
     @PostMapping
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, Principal principal, Demo demo) {
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, Principal principal) {
         try {
-            storageService.saveDemo(file);
-            storageService.saveDemoToUser(demo, principal);
+            demoService.save(file);
+
             return ResponseEntity.status(HttpStatus.OK)
                     .body(String.format("File uploaded successfully: %s", file.getOriginalFilename()));
         } catch (Exception e) {
@@ -49,22 +48,22 @@ public class DemoController {
 
     @GetMapping
     public List<DemoResponse> list() {
-        return storageService.getAllFiles()
+        return demoService.getAllFiles()
                 .stream()
                 .map(this::mapToFileResponse)
                 .collect(Collectors.toList());
     }
 
-    private DemoResponse mapToFileResponse(Demo demoFiles) {
+    private DemoResponse mapToFileResponse(Demo demos) {
         String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/files/")
-                .path(String.valueOf(demoFiles.getId()))
+                .path(demos.getId())
                 .toUriString();
-        DemoResponse fileResponse = new DemoResponse("","","",0,0,"");
-        fileResponse.setId(demoFiles.getId());
-        fileResponse.setName(demoFiles.getName());
-        fileResponse.setContenttype(demoFiles.getContentType());
-        fileResponse.setSize(demoFiles.getSize());
+        DemoResponse fileResponse = new DemoResponse("","","",0,"","");
+        fileResponse.setId(demos.getId());
+        fileResponse.setName(demos.getName());
+        fileResponse.setContenttype(demos.getContentType());
+        fileResponse.setSize(demos.getSize());
         fileResponse.setUrl(downloadURL);
 
         return fileResponse;
@@ -72,7 +71,7 @@ public class DemoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getFile(@PathVariable String id) {
-        Optional<Demo> demoFilesOptional = DemoStorageService.getFile(id);
+        Optional<Demo> demoFilesOptional = DemoService.getFile(id);
 
         if (!demoFilesOptional.isPresent()) {
             return ResponseEntity.notFound()
@@ -87,34 +86,5 @@ public class DemoController {
                 .body(demoFiles.getDirectory());
     }
 
-//    @PostMapping("/files")
-//    public ResponseEntity<Object> saveDemoToUser(@RequestBody Demo demo, Principal principal) {
-//        long newId = storageService.saveDemoToUser(demo, principal);
-//        return new ResponseEntity<>(newId, HttpStatus.CREATED);
-//    }
-
 }
-
-
-
-
-
-
-    //    @Autowired
-//    private UploadService uploadService;
-//
-//    @PostMapping("/upload")
-//    public void uploadFile(MultipartFile file) throws IOException {
-//        uploadService.uploadFile(file);
-//    }
-
-
-//    @PostMapping("/upload")
-//    public String uploadFile(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
-//        fileUploadService.uploadFile(file);
-//
-//        redirectAttributes.addFlashAttribute( "message",
-//                "You successfullu uploaded " + file.getOriginalFilename() + "!");
-//        return "redirect:/";
-//    }
 

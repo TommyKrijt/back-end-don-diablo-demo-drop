@@ -1,17 +1,22 @@
 package nl.novi.krijt.service;
 
+import nl.novi.krijt.domain.Demo;
 import nl.novi.krijt.domain.Upload;
+import nl.novi.krijt.domain.User;
 import nl.novi.krijt.exception.DatabaseErrorException;
 import nl.novi.krijt.exception.RecordNotFoundException;
 import nl.novi.krijt.repository.UploadRepository;
+import nl.novi.krijt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UploadServiceImpl implements UploadService {
-
 
     @Autowired
     UploadRepository uploadRepository;
@@ -52,10 +57,10 @@ public class UploadServiceImpl implements UploadService {
         if (uploadRepository.existsById(id)) {
             try {
                 Upload existingUpload = uploadRepository.findById(id).orElse(null);
-                existingUpload.setName(upload.getName());
+                existingUpload.setArtist_name(upload.getArtist_name());
                 existingUpload.setEmail(upload.getEmail());
-                existingUpload.setUploadName(upload.getUploadName());
-                existingUpload.setUploadFile(upload.getUploadFile());
+                existingUpload.setSong_name(upload.getSong_name());
+                existingUpload.setUpload_file(upload.getUpload_file());
                 existingUpload.setMessage(upload.getMessage());
                 uploadRepository.save(existingUpload);
             }

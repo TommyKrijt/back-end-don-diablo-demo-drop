@@ -6,36 +6,36 @@ public class DemoResponse {
     private String url;
     private String type;
     private long size;
-    private long id;
-    private String contenttype;
+    private String id;
+    private String contentType;
 
-    public DemoResponse(String name, String url, String type, long size, long id, String contenttype) {
+    public DemoResponse(String name, String url, String type, long size, String id, String contentType) {
         this.name = name;
         this.url = url;
         this.type = type;
         this.size = size;
         this.id = id;
-        this.contenttype = contenttype;
+        this.contentType = contentType;
     }
 
     public String getName() {
         return name;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public String getContenttype() {
-        return contenttype;
+        return contentType;
     }
 
     public void setContenttype(String contenttype) {
-        this.contenttype = contenttype;
+        this.contentType = contenttype;
     }
 
     public void setName(String name) {

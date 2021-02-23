@@ -7,13 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.File;
-import java.util.Set;
 
 @Entity
 @Table(name = "app_upload")
@@ -32,23 +26,29 @@ public class Upload {
     private long id;
     private String name;
     private String email;
-    private String uploadName;
+    private String song;
+    private String upload_file; // should be Demo Type?
     private String message;
-    private String uploadFile; // This will be of type FileUpload @OneToOne
-
-    @OneToOne
-    @JoinColumn(name = "demo_id ")
-    private Demo demo;
 
     public Upload() {
 
     }
 
-    public Upload(String name, String email, String uploadName, String uploadFile, String message) {
+    public Upload(String name, String email) {
         this.name = name;
         this.email = email;
-        this.uploadName = uploadName;
-        this.uploadFile = uploadFile;
+    }
+
+    public Upload(String name, String song, String message) {
+        this.name = name;
+        this.song = song;
+        this.message = message;
+    }
+
+    public Upload(String name, String song_name, String message, String upload_file) {
+        this.name = name;
+        this.song = song;
+        this.upload_file = upload_file;
         this.message = message;
     }
 
@@ -60,11 +60,11 @@ public class Upload {
         this.id = id;
     }
 
-    public String getName() {
+    public String getArtist_name() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setArtist_name(String name) {
         this.name = name;
     }
 
@@ -76,20 +76,20 @@ public class Upload {
         this.email = email;
     }
 
-    public String getUploadName() {
-        return uploadName;
+    public String getSong_name() {
+        return song;
     }
 
-    public void setUploadName(String uploadName) {
-        this.uploadName = uploadName;
+    public void setSong_name(String name) {
+        this.song = name;
     }
 
-    public String getUploadFile() {
-        return uploadFile;
+    public String getUpload_file() {
+        return upload_file;
     }
 
-    public void setUploadFile(String uploadFile) {
-        this.uploadFile = uploadFile;
+    public void setUpload_file(String upload_file) {
+        this.upload_file = upload_file;
     }
 
     public String getMessage() {
@@ -99,6 +99,4 @@ public class Upload {
     public void setMessage(String message) {
         this.message = message;
     }
-
-
 }

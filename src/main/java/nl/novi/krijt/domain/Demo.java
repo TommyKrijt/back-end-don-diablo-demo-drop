@@ -1,12 +1,10 @@
 package nl.novi.krijt.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,13 +12,9 @@ import javax.persistence.Table;
 public class Demo {
 
     @Id
-    @GeneratedValue(
-            strategy= GenerationType.AUTO,
-            generator="native"
-    )
-//    @GeneratedValue(generator = "uuid")
-//    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     private String name;
 
@@ -30,26 +24,11 @@ public class Demo {
 
     private Long size;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id")
-    private User user;
-
-    public Demo(String name, String contentType, String directory, Long size, User user) {
-        this.name = name;
-        this.contentType = contentType;
-        this.directory = directory;
-        this.size = size;
-        this.user = user;
-    }
-
-    public Demo() {
-    }
-
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -85,19 +64,4 @@ public class Demo {
         this.size = size;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    //    public Upload getUpload() {
-//        return upload;
-//    }
-//
-//    public void setUpload(Upload upload) {
-//        this.upload = upload;
-//    }
 }
