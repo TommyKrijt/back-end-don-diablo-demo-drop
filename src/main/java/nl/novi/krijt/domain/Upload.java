@@ -45,7 +45,7 @@ public class Upload {
         this.message = message;
     }
 
-    public Upload(String name, String song_name, String message, String upload_file) {
+    public Upload(String name, String song, String message, String upload_file) {
         this.name = name;
         this.song = song;
         this.upload_file = upload_file;
@@ -60,11 +60,11 @@ public class Upload {
         this.id = id;
     }
 
-    public String getArtist_name() {
+    public String getName() {
         return name;
     }
 
-    public void setArtist_name(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -76,12 +76,12 @@ public class Upload {
         this.email = email;
     }
 
-    public String getSong_name() {
+    public String getSong() {
         return song;
     }
 
-    public void setSong_name(String name) {
-        this.song = name;
+    public void setSong(String song) {
+        this.song = song;
     }
 
     public String getUpload_file() {

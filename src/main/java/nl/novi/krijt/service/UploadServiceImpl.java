@@ -57,9 +57,9 @@ public class UploadServiceImpl implements UploadService {
         if (uploadRepository.existsById(id)) {
             try {
                 Upload existingUpload = uploadRepository.findById(id).orElse(null);
-                existingUpload.setArtist_name(upload.getArtist_name());
+                existingUpload.setName(upload.getName());
                 existingUpload.setEmail(upload.getEmail());
-                existingUpload.setSong_name(upload.getSong_name());
+                existingUpload.setSong(upload.getSong());
                 existingUpload.setUpload_file(upload.getUpload_file());
                 existingUpload.setMessage(upload.getMessage());
                 uploadRepository.save(existingUpload);
