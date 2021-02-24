@@ -29,13 +29,13 @@ public class DemoServiceImpl implements DemoService{
     public void uploadDemoToDir(MultipartFile file, Principal principal) throws IOException {
         file.transferTo(new File(uploadDir + file.getOriginalFilename()));
 
-        long currentUserId = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getId();
-        Optional<User> optionalUser = userRepository.findById(currentUserId);
+//        long currentUserId = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getId();
+//        Optional<User> optionalUser = userRepository.findById(currentUserId);
 
         Demo demo = new Demo();
 
         demo.setName(file.getOriginalFilename());
-        demo.setUser(optionalUser.get());
+//        demo.setUser(optionalUser.get());
 
         demoRepository.save(demo).getId();
     }

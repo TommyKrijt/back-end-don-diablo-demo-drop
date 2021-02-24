@@ -1,5 +1,7 @@
 package nl.novi.krijt.domain;
 
+
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -40,7 +42,7 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "user")
-    private Set<Demo> demos;
+    private Set<UploadData> uploadDatas;
 
     public User() {
 
@@ -92,11 +94,11 @@ public class User {
         this.roles = roles;
     }
 
-   public Set<Demo> getDemos() {
-       return demos;
-  }
+    public Set<UploadData> getUploadDatas() {
+        return uploadDatas;
+    }
 
- public void setDemos(Set<Demo> demos) {
-        this.demos = demos;
-   }
+    public void setUploadDatas(Set<UploadData> uploadDatas) {
+        this.uploadDatas = uploadDatas;
+    }
 }

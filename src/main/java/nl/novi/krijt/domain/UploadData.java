@@ -1,23 +1,20 @@
 package nl.novi.krijt.domain;
 
-import nl.novi.krijt.domain.Demo;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "app_upload")
-public class Upload {
+@Table(name = "app_uploadData")
+public class UploadData {
 
     @Id
     @GeneratedValue(
@@ -32,36 +29,22 @@ public class Upload {
     private long id;
     private String name;
     private String email;
-    private String song;
-//    private String upload_file; // should be Demo Type?
+    private String songName;
     private String message;
 
-    public Upload() {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
+    public UploadData() {
     }
 
-    public Upload(String name, String email) {
+    public UploadData(long id, String name, String email, String songName, String message) {
+        this.id = id;
         this.name = name;
         this.email = email;
-    }
-
-    public Upload(String name, String song, String message) {
-        this.name = name;
-        this.song = song;
-        this.message = message;
-    }
-
-    public Upload(String name, String song, String message, String upload_file) {
-        this.name = name;
-        this.song = song;
-//        this.upload_file = upload_file;
-        this.message = message;
-    }
-
-    public Upload(String name, String email, String song, String message, Demo demo) {
-        this.name = name;
-        this.email = email;
-        this.song = song;
+        this.songName = songName;
         this.message = message;
     }
 
@@ -89,21 +72,13 @@ public class Upload {
         this.email = email;
     }
 
-    public String getSong() {
-        return song;
+    public String getSongName() {
+        return songName;
     }
 
-    public void setSong(String song) {
-        this.song = song;
+    public void setSongName(String songName) {
+        this.songName = songName;
     }
-
-//    public String getUpload_file() {
-//        return upload_file;
-//    }
-//
-//    public void setUpload_file(String upload_file) {
-//        this.upload_file = upload_file;
-//    }
 
     public String getMessage() {
         return message;
@@ -111,5 +86,13 @@ public class Upload {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
