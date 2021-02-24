@@ -1,6 +1,7 @@
 package nl.novi.krijt.domain;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.File;
 
 @Entity
 @Table(name = "app_demo")
@@ -25,13 +27,15 @@ public class Demo {
     @Column(columnDefinition = "serial")
     private long id;
     private String name;
+    private File demo;
 
     public Demo() {
     }
 
-    public Demo(long id, String name) {
+    public Demo(long id, String name, File demo) {
         this.id = id;
         this.name = name;
+        this.demo = demo;
     }
 
     public long getId() {
@@ -48,6 +52,14 @@ public class Demo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public File getDemo() {
+        return demo;
+    }
+
+    public void setDemo(File demo) {
+        this.demo = demo;
     }
 }
 

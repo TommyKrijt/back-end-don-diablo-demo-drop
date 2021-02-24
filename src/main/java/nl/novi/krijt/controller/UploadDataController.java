@@ -5,6 +5,7 @@ import nl.novi.krijt.domain.UploadData;
 import nl.novi.krijt.service.UploadDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +46,9 @@ public class UploadDataController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping(value = "")
+    @PostMapping(value = "",
+    consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+    produces = {MediaType.APPLICATION_JSON_VALUE} )
     public ResponseEntity<Object> saveUpload(@RequestBody UploadData upload, Principal principal) {
         long newId = uploadDataService.createUpload(upload, principal);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
