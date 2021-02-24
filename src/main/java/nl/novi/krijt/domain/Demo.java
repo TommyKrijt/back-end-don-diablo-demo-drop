@@ -2,33 +2,52 @@ package nl.novi.krijt.domain;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.File;
 
 @Entity
 @Table(name = "app_demo")
 public class Demo {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-
+    @GeneratedValue(
+            strategy = GenerationType.AUTO,
+            generator = "native"
+    )
+    @GenericGenerator(
+            name = "native",
+            strategy = "native"
+    )
+    @Column(columnDefinition = "serial")
+    private long id;
     private String name;
+    File demoUpload;
 
-    private String contentType;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private String directory;
+    public Demo() {
+    }
 
-    private Long size;
+    public Demo(long id, String name, File demoUpload) {
+        this.id = id;
+        this.name = name;
+        this.demoUpload = demoUpload;
+    }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -40,28 +59,21 @@ public class Demo {
         this.name = name;
     }
 
-    public String getContentType() {
-        return contentType;
+    public File getDemoUpload() {
+        return demoUpload;
     }
 
-    public void setContentType(String directory) {
-        this.directory = directory;
+    public void setDemoUpload(File demoUpload) {
+        this.demoUpload = demoUpload;
     }
 
-    public String getDirectory() {
-        return directory;
+    public User getUser() {
+        return user;
     }
 
-    public void setDirectory(String directory) {
-        this.directory = directory;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public Long getSize() {
-        return size;
-    }
-
-    public void setSize(Long size) {
-        this.size = size;
-    }
-
 }
+
+

@@ -1,12 +1,18 @@
 package nl.novi.krijt.domain;
 
-import org.hibernate.annotations.GenericGenerator;
+import nl.novi.krijt.domain.Demo;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,7 +33,7 @@ public class Upload {
     private String name;
     private String email;
     private String song;
-    private String upload_file; // should be Demo Type?
+//    private String upload_file; // should be Demo Type?
     private String message;
 
     public Upload() {
@@ -48,7 +54,14 @@ public class Upload {
     public Upload(String name, String song, String message, String upload_file) {
         this.name = name;
         this.song = song;
-        this.upload_file = upload_file;
+//        this.upload_file = upload_file;
+        this.message = message;
+    }
+
+    public Upload(String name, String email, String song, String message, Demo demo) {
+        this.name = name;
+        this.email = email;
+        this.song = song;
         this.message = message;
     }
 
@@ -84,13 +97,13 @@ public class Upload {
         this.song = song;
     }
 
-    public String getUpload_file() {
-        return upload_file;
-    }
-
-    public void setUpload_file(String upload_file) {
-        this.upload_file = upload_file;
-    }
+//    public String getUpload_file() {
+//        return upload_file;
+//    }
+//
+//    public void setUpload_file(String upload_file) {
+//        this.upload_file = upload_file;
+//    }
 
     public String getMessage() {
         return message;

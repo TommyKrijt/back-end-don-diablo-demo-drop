@@ -60,7 +60,7 @@ public class UploadServiceImpl implements UploadService {
                 existingUpload.setName(upload.getName());
                 existingUpload.setEmail(upload.getEmail());
                 existingUpload.setSong(upload.getSong());
-                existingUpload.setUpload_file(upload.getUpload_file());
+//                existingUpload.setUpload_file(upload.getUpload_file());
                 existingUpload.setMessage(upload.getMessage());
                 uploadRepository.save(existingUpload);
             }

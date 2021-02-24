@@ -1,9 +1,7 @@
 package nl.novi.krijt.controller;
 
-
-import nl.novi.krijt.domain.Upload;
-import nl.novi.krijt.service.DemoService;
-import nl.novi.krijt.service.UploadService;
+import nl.novi.krijt.domain.FeedbackText;
+import nl.novi.krijt.service.FeedbackTextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,39 +19,40 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/uploads")
-public class UploadController {
+@RequestMapping("/api/feedbacktexts")
+public class FeedbackTextController {
 
     @Autowired
-    UploadService uploadService;
+    FeedbackTextService feedbackTextService;
 
     @GetMapping(value = "")
-    public ResponseEntity<Object> getAllUploads() {
-        List<Upload> uploads = uploadService.getAllUploads();
-        return new ResponseEntity<>(uploads, HttpStatus.OK);
+    public ResponseEntity<Object> getAllFeedbackTexts() {
+        List<FeedbackText> feedbackTexts = feedbackTextService.getAllFeedbackTexts();
+        return new ResponseEntity<>(feedbackTexts, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getUploadById(@PathVariable("id") long id) {
-        Upload upload = uploadService.getUploadById(id);
-        return new ResponseEntity<>(upload, HttpStatus.OK);
+    public ResponseEntity<Object> getUploadTextById(@PathVariable("id") long id) {
+        FeedbackText feedbackText = feedbackTextService.getFeedbackTextById(id);
+        return new ResponseEntity<>(feedbackText, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteUpload(@PathVariable("id") long id) {
-        uploadService.deleteUpload(id);
+    public ResponseEntity<Object> deleteFeedbackText(@PathVariable("id") long id) {
+        feedbackTextService.deleteFeedbackText(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<Object> saveUpload(@RequestBody Upload upload) {
-        long newId = uploadService.saveUpload(upload);
+    public ResponseEntity<Object> saveFeedbackText(@RequestBody FeedbackText feedbackText) {
+        long newId = feedbackTextService.saveFeedbackText(feedbackText);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateUpload(@PathVariable("id") long id, @RequestBody Upload upload) {
-        uploadService.updateUpload(id, upload);
+    public ResponseEntity<Object> updateFeedbackText(@PathVariable("id") long id, @RequestBody FeedbackText feedbackText) {
+        feedbackTextService.updateFeedbackText(id, feedbackText);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
