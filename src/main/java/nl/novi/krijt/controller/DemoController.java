@@ -2,6 +2,7 @@ package nl.novi.krijt.controller;
 
 import nl.novi.krijt.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import java.security.Principal;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/files")
+@RequestMapping(value = "/api/files")
 public class DemoController {
 
     @Autowired
@@ -25,8 +26,9 @@ public class DemoController {
     public void uploadFile(@RequestParam("file") MultipartFile file,
                            Principal principal,
                            @RequestParam("message") String message,
-                           @RequestParam("name") String name) throws IllegalStateException, IOException {
-        demoService.uploadDemoToDir(file, principal, name, message);
+                           @RequestParam("name") String name,
+                           @RequestParam("email") String email) throws IllegalStateException, IOException {
+        demoService.uploadDemoToDir(file, principal, name, email, message);
     }
 }
 
