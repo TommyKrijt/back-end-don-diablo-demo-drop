@@ -1,7 +1,9 @@
 package nl.novi.krijt.service;
 
 import nl.novi.krijt.domain.Demo;
+import nl.novi.krijt.domain.UploadData;
 import nl.novi.krijt.domain.User;
+import nl.novi.krijt.exception.RecordNotFoundException;
 import nl.novi.krijt.repository.DemoRepository;
 import nl.novi.krijt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,7 +46,19 @@ public class DemoServiceImpl implements DemoService{
         demoRepository.save(demo).getId();
     }
 
+    @Override
+    public List<Demo> getAllDemos() {
+        return demoRepository.findAll();
+    }
 
-
+    @Override
+    public Demo getDemoById(long id) {
+        if (demoRepository.existsById(id)) {
+            return demoRepository.findById(id).orElse(null);
+        }
+        else {
+            throw new RecordNotFoundException();
+        }
+    }
 }
 
