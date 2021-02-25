@@ -2,7 +2,6 @@ package nl.novi.krijt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.io.File;
+
 
 @Entity
 @Table(name = "app_demo")
@@ -33,6 +32,7 @@ public class Demo {
     private String email;
     private String demo;
     private String message;
+    private String downloadUrl;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -42,12 +42,13 @@ public class Demo {
     public Demo() {
     }
 
-    public Demo(long id, String name, String email, String demo, String message) {
+    public Demo(long id, String name, String email, String demo, String message, String downloadUrl) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.message = message;
         this.demo = demo;
+        this.downloadUrl = downloadUrl;
     }
 
     public long getId() {
@@ -96,6 +97,14 @@ public class Demo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
     }
 }
 

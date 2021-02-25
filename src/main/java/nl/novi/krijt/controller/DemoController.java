@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -37,18 +36,12 @@ public class DemoController {
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PostMapping("/uploads")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,
+    public void uploadFile(@RequestParam("file") MultipartFile file,
                                              Principal principal,
                                              @RequestParam("message") String message,
                                              @RequestParam("name") String name,
                                              @RequestParam("email") String email) throws IllegalStateException, IOException {
         demoService.uploadDemoToDir(file, principal, name, email, message);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("api/files/uploads/download/")
-                .path(file.getOriginalFilename())
-                .toUriString();
-        return ResponseEntity.ok(fileDownloadUri);
     }
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -75,7 +68,7 @@ public class DemoController {
             e.printStackTrace();
         }
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }

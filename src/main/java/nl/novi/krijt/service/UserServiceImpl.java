@@ -64,6 +64,5 @@ public class UserServiceImpl implements UserService {
             throw new RecordNotFoundException();
         }
     }
-
 }
 

@@ -1,6 +1,7 @@
 package nl.novi.krijt.service;
 
 import nl.novi.krijt.domain.User;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
