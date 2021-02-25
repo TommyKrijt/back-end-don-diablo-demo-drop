@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -46,11 +49,14 @@ public class UploadDataController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping(value = "",
-    consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-    produces = {MediaType.APPLICATION_JSON_VALUE} )
-    public ResponseEntity<Object> saveUpload(@RequestBody UploadData upload, Principal principal) {
-        long newId = uploadDataService.createUpload(upload, principal);
+    @PostMapping(value = "")
+    public ResponseEntity<Object> saveUpload(@RequestBody UploadData upload, Principal principal,
+                                             @RequestParam("file") MultipartFile file,
+                                             @RequestParam("name") String name,
+                                             @RequestParam("email") String email,
+                                             @RequestParam("songName") String songName,
+                                             @RequestParam("message") String message) throws IOException {
+        long newId = uploadDataService.createUpload(upload, principal, file, name, email, songName, message);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
     }
 

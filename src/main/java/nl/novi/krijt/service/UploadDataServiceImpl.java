@@ -9,7 +9,10 @@ import nl.novi.krijt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +25,9 @@ public class UploadDataServiceImpl implements UploadDataService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public static String uploadDir = System.getProperty("user.dir") + "/fileUploads/";
+
 
     @Override
     public List<UploadData> getAllUploadDatas() {
@@ -49,11 +55,17 @@ public class UploadDataServiceImpl implements UploadDataService {
     }
 
     @Override
-    public long createUpload(UploadData upload, Principal principal) {
+    public long createUpload(UploadData upload, Principal principal, MultipartFile file, String name, String email, String songName, String message) throws IOException {
+        file.transferTo(new File(uploadDir + file.getOriginalFilename()));
+
         long currentUserId = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getId();
         Optional<User> optionalUser = userRepository.findById(currentUserId);
 
-        upload.setUser(optionalUser.get());
+//        upload.setUser(optionalUser.get());
+        upload.setName(name);
+        upload.setEmail(email);
+        upload.setSongName(songName);
+        upload.setMessage(message);
         return uploadDataRepository.save(upload).getId();
     }
 

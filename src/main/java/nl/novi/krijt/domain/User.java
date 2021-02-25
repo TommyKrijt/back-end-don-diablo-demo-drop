@@ -42,7 +42,7 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "user")
-    private Set<UploadData> uploadDatas;
+    private Set<Demo> Demos;
 
     public User() {
 
@@ -94,11 +94,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<UploadData> getUploadDatas() {
-        return uploadDatas;
+    public Set<Demo> getDemos() {
+        return Demos;
     }
 
-    public void setUploadDatas(Set<UploadData> uploadDatas) {
-        this.uploadDatas = uploadDatas;
+    public void setDemos(Set<Demo> demos) {
+        Demos = demos;
     }
 }
