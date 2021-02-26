@@ -66,5 +66,12 @@ public class DemoServiceImpl implements DemoService{
             throw new RecordNotFoundException();
         }
     }
+
+    @Override
+    public List<Demo> getAllDemosForUser(Principal principal) {
+        Long userId = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getId();
+        List<Demo> projects = demoRepository.findAllByUserId(userId);
+        return projects;
+    }
 }
 

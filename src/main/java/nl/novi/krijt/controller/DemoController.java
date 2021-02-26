@@ -45,7 +45,7 @@ public class DemoController {
     }
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    @GetMapping(value = "/uploads")
+    @GetMapping(value = "/uploads/all")
     public ResponseEntity<Object> getAllUploads() {
         List<Demo> demos = demoService.getAllDemos();
         return new ResponseEntity<>(demos, HttpStatus.OK);
@@ -72,5 +72,13 @@ public class DemoController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping(value = "/uploads")
+    public ResponseEntity<Object> getAllDemosForUser(Principal principal) {
+        List<Demo> projects = demoService.getAllDemosForUser(principal);
+        return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
 }
 

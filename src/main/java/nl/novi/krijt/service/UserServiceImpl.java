@@ -5,6 +5,7 @@ import nl.novi.krijt.exception.DatabaseErrorException;
 import nl.novi.krijt.exception.RecordNotFoundException;
 import nl.novi.krijt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +13,14 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Value("${novi.sec.jwtSecret}")
+    private String jwtSecret;
+
     @Autowired
     private UserRepository userRepository;
+
+    private static final String PREFIX = "Bearer ";
+
 
     @Override
     public List<User> getAllUsers() {
@@ -64,5 +71,6 @@ public class UserServiceImpl implements UserService {
             throw new RecordNotFoundException();
         }
     }
+
 }
 
