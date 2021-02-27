@@ -1,6 +1,8 @@
 package nl.novi.krijt.controller;
 
 import nl.novi.krijt.domain.Demo;
+import nl.novi.krijt.domain.UploadData;
+import nl.novi.krijt.domain.User;
 import nl.novi.krijt.payload.response.DemoResponse;
 import nl.novi.krijt.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +47,7 @@ public class DemoController {
                                                    @RequestParam("name") String name,
                                                    @RequestParam("email") String email) throws IllegalStateException, IOException {
 
-        return demoService.uploadDemoToDir(file, principal, name, email, message);
+        return demoService.uploadDemoToDir(file, principal, email, name, message);
 
     }
 
@@ -82,6 +86,12 @@ public class DemoController {
     public ResponseEntity<Object> getAllDemosForUser(Principal principal) {
         List<Demo> projects = demoService.getAllDemosForUser(principal);
         return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/uploads/{id}")
+    public ResponseEntity<Object> updateUpload(@PathVariable("id") long id, @RequestParam("feedback") String feedback) {
+        demoService.updateDemo(id, feedback);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

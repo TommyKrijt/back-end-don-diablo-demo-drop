@@ -1,7 +1,9 @@
 package nl.novi.krijt.service;
 
 import nl.novi.krijt.domain.Demo;
+import nl.novi.krijt.domain.UploadData;
 import nl.novi.krijt.domain.User;
+import nl.novi.krijt.exception.DatabaseErrorException;
 import nl.novi.krijt.exception.RecordNotFoundException;
 import nl.novi.krijt.payload.response.DemoResponse;
 import nl.novi.krijt.repository.DemoRepository;
@@ -75,6 +77,23 @@ public class DemoServiceImpl implements DemoService{
         Long userId = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getId();
         List<Demo> projects = demoRepository.findAllByUserId(userId);
         return projects;
+    }
+
+    @Override
+    public void updateDemo(long id, String feedback) {
+        if (demoRepository.existsById(id)) {
+            try {
+                Demo existingDemo = demoRepository.findById(id).orElse(null);
+                existingDemo.setFeedback(feedback);
+                demoRepository.save(existingDemo);
+            }
+            catch (Exception ex) {
+                throw new DatabaseErrorException();
+            }
+        }
+        else {
+            throw new RecordNotFoundException();
+        }
     }
 }
 

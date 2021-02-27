@@ -33,6 +33,7 @@ public class Demo {
     private String demo;
     private String message;
     private String downloadUrl;
+    private String feedback;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -42,13 +43,14 @@ public class Demo {
     public Demo() {
     }
 
-    public Demo(long id, String name, String email, String demo, String message, String downloadUrl) {
+    public Demo(long id, String name, String email, String demo, String message, String downloadUrl, String feedback) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.message = message;
         this.demo = demo;
         this.downloadUrl = downloadUrl;
+        this.feedback = feedback;
     }
 
     public long getId() {
@@ -105,6 +107,14 @@ public class Demo {
 
     public void setDownloadUrl(String downloadUrl) {
         this.downloadUrl = downloadUrl;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 }
 

@@ -13,4 +13,5 @@ public interface DemoService {
     List<Demo> getAllDemos();
     Demo getDemoById(long id);
     List<Demo> getAllDemosForUser(Principal principal);
+    void updateDemo(long id, String feedback);
 }

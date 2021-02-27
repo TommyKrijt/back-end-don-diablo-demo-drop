@@ -15,8 +15,8 @@ INSERT INTO role(name) VALUES('ROLE_USER');
 INSERT INTO role(name) VALUES('ROLE_MODERATOR');
 INSERT INTO role(name) VALUES('ROLE_ADMIN');
 
-INSERT INTO feedback_text(message) VALUES('Dit is feedback 1');
-INSERT INTO feedback_text(message) VALUES('Dit is feedback 2');
-INSERT INTO feedback_text(message) VALUES('Dit is feedback 3');
-INSERT INTO feedback_text(message) VALUES('Dit is feedback 4');
-INSERT INTO feedback_text(message) VALUES('Dit is feedback 5');
+INSERT INTO feedback_text(message) VALUES('This is Don, here is some feedback: I like it, it wil be on hexagon soon');
+INSERT INTO feedback_text(message) VALUES('This is Don, here is some feedback: I like it, but it needs some tweaks');
+INSERT INTO feedback_text(message) VALUES('This is Don, I will not use your demo, the style does not fit Hexagon');
+INSERT INTO feedback_text(message) VALUES('This is Don, I might use your demo in the future.');
+INSERT INTO feedback_text(message) VALUES('This is Don, here is some feedback: make it a party mix');
