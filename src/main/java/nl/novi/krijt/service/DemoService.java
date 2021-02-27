@@ -1,6 +1,7 @@
 package nl.novi.krijt.service;
 
 import nl.novi.krijt.domain.Demo;
+import nl.novi.krijt.payload.response.DemoResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,5 +14,5 @@ public interface DemoService {
     List<Demo> getAllDemos();
     Demo getDemoById(long id);
     List<Demo> getAllDemosForUser(Principal principal);
-    void updateDemo(long id, String feedback);
+    ResponseEntity<DemoResponse> updateDemo(long id, String feedback);
 }

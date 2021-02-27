@@ -89,9 +89,8 @@ public class DemoController {
     }
 
     @PutMapping(value = "/uploads/{id}")
-    public ResponseEntity<Object> updateUpload(@PathVariable("id") long id, @RequestParam("feedback") String feedback) {
-        demoService.updateDemo(id, feedback);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<DemoResponse> updateUpload(@PathVariable("id") long id, @RequestParam("feedback") String feedback) {
+        return demoService.updateDemo(id, feedback);
     }
 
 }

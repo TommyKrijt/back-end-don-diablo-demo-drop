@@ -80,7 +80,7 @@ public class DemoServiceImpl implements DemoService{
     }
 
     @Override
-    public void updateDemo(long id, String feedback) {
+    public ResponseEntity<DemoResponse> updateDemo(long id, String feedback) {
         if (demoRepository.existsById(id)) {
             try {
                 Demo existingDemo = demoRepository.findById(id).orElse(null);
@@ -94,6 +94,7 @@ public class DemoServiceImpl implements DemoService{
         else {
             throw new RecordNotFoundException();
         }
+        return ResponseEntity.ok(new DemoResponse("Feedback is updated!"));
     }
 }
 
