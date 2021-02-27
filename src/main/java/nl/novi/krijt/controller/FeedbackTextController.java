@@ -33,7 +33,7 @@ public class FeedbackTextController {
         return new ResponseEntity<>(feedbackTexts, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getFeedbackTextById(@PathVariable("id") long id) {
         FeedbackText feedbackText = feedbackTextService.getFeedbackTextById(id);

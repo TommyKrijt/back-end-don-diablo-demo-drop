@@ -24,13 +24,14 @@ public class FeedbackText {
     )
     @Column(columnDefinition = "serial")
     private long id;
+    private String name;
     private String message;
 
     public FeedbackText() {
 
     }
 
-    public FeedbackText(long id, String message) {
+    public FeedbackText(long id, String name, String message) {
         this.id = id;
         this.message = message;
     }
@@ -55,4 +56,11 @@ public class FeedbackText {
         this.message = message;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

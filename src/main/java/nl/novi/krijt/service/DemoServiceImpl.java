@@ -1,7 +1,6 @@
 package nl.novi.krijt.service;
 
 import nl.novi.krijt.domain.Demo;
-import nl.novi.krijt.domain.UploadData;
 import nl.novi.krijt.domain.User;
 import nl.novi.krijt.exception.DatabaseErrorException;
 import nl.novi.krijt.exception.RecordNotFoundException;
