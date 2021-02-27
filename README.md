@@ -63,7 +63,12 @@ In de verschillende documenten wordt verwezen naar verschillende verwijzingen na
 
 * PostgresSQL13: [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
 * pgAdmin4: [https://www.pgadmin.org/download/](https://www.pgadmin.org/download/)
-* JDK Java Download 
+* OpenJDK11 Java Download: [https://adoptopenjdk.net/](https://adoptopenjdk.net/)
+* NodeJS Download: [https://nodejs.org/en/](https://nodejs.org/en/)
+* Frontend Repo: [https://github.com/TommyKrijt/front-end-don-diablo-demo-drop.git](https://github.com/TommyKrijt/front-end-don-diablo-demo-drop.git)
+* Backend Repo: [https://github.com/TommyKrijt/back-end-don-diablo-demo-drop.git](https://github.com/TommyKrijt/back-end-don-diablo-demo-drop.git)
+
+
 
 
 ---
