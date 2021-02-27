@@ -9,7 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface DemoService {
-    void uploadDemoToDir(MultipartFile file, Principal principal, String name, String email, String message) throws IOException;
+    ResponseEntity uploadDemoToDir(MultipartFile file, Principal principal, String name, String email, String message) throws IOException;
     List<Demo> getAllDemos();
     Demo getDemoById(long id);
     List<Demo> getAllDemosForUser(Principal principal);

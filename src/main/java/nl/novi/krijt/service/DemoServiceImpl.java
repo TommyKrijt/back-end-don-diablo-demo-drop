@@ -3,9 +3,11 @@ package nl.novi.krijt.service;
 import nl.novi.krijt.domain.Demo;
 import nl.novi.krijt.domain.User;
 import nl.novi.krijt.exception.RecordNotFoundException;
+import nl.novi.krijt.payload.response.DemoResponse;
 import nl.novi.krijt.repository.DemoRepository;
 import nl.novi.krijt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +31,7 @@ public class DemoServiceImpl implements DemoService{
     public static String uploadDir = System.getProperty("user.dir") + "/fileUploads/";
 
     @Override
-    public void uploadDemoToDir(MultipartFile file, Principal principal, String name, String email, String message) throws IOException {
+    public ResponseEntity<DemoResponse> uploadDemoToDir(MultipartFile file, Principal principal, String name, String email, String message) throws IOException {
         file.transferTo(new File(uploadDir + file.getOriginalFilename()));
 
         long currentUserId = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getId();
@@ -50,6 +52,7 @@ public class DemoServiceImpl implements DemoService{
         demo.setDownloadUrl(fileDownloadUri);
 
         demoRepository.save(demo).getId();
+        return ResponseEntity.ok(new DemoResponse("Demo uploaded successfully!"));
     }
 
     @Override

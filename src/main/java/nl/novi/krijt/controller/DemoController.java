@@ -1,6 +1,7 @@
 package nl.novi.krijt.controller;
 
 import nl.novi.krijt.domain.Demo;
+import nl.novi.krijt.payload.response.DemoResponse;
 import nl.novi.krijt.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
@@ -36,28 +37,31 @@ public class DemoController {
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PostMapping("/uploads")
-    public void uploadFile(@RequestParam("file") MultipartFile file,
-                                             Principal principal,
-                                             @RequestParam("message") String message,
-                                             @RequestParam("name") String name,
-                                             @RequestParam("email") String email) throws IllegalStateException, IOException {
-        demoService.uploadDemoToDir(file, principal, name, email, message);
+    public ResponseEntity<DemoResponse> uploadFile(@RequestParam("file") MultipartFile file,
+                                                   Principal principal,
+                                                   @RequestParam("message") String message,
+                                                   @RequestParam("name") String name,
+                                                   @RequestParam("email") String email) throws IllegalStateException, IOException {
+
+        return demoService.uploadDemoToDir(file, principal, name, email, message);
+
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/uploads/all")
     public ResponseEntity<Object> getAllUploads() {
         List<Demo> demos = demoService.getAllDemos();
         return new ResponseEntity<>(demos, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/uploads/{id}")
     public ResponseEntity<Object> getUploadById(@PathVariable("id") long id) {
         Demo demo = demoService.getDemoById(id);
         return new ResponseEntity<>(demo, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("uploads/download/{fileName}")
     public ResponseEntity downloadFileFromLocal(@PathVariable String fileName) {
         Path path = Paths.get( System.getProperty("user.dir") + "/fileUploads/" + fileName);
