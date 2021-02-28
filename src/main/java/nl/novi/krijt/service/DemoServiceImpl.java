@@ -38,6 +38,9 @@ public class DemoServiceImpl implements DemoService{
         long currentUserId = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getId();
         Optional<User> optionalUser = userRepository.findById(currentUserId);
 
+        String currentUserName = ((UserDetailsImpl) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getUsername();
+        Optional<User> optionalUserName = userRepository.findByUsername(currentUserName);
+
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("api/files/uploads/download/")
                 .path(file.getOriginalFilename())
@@ -45,8 +48,7 @@ public class DemoServiceImpl implements DemoService{
 
         Demo demo = new Demo();
 
-        demo.setName(name);
-        demo.setEmail(email);
+        demo.setName(optionalUserName.get().getUsername());
         demo.setDemo(file.getOriginalFilename());
         demo.setMessage(message);
         demo.setUser(optionalUser.get());

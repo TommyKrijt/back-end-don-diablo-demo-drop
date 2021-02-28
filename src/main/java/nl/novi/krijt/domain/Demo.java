@@ -29,7 +29,6 @@ public class Demo {
     @Column(columnDefinition = "serial")
     private long id;
     private String name;
-    private String email;
     private String demo;
     private String message;
     private String downloadUrl;
@@ -44,10 +43,9 @@ public class Demo {
     public Demo() {
     }
 
-    public Demo(long id, String name, String email, String demo, String message, String downloadUrl, String feedback) {
+    public Demo(long id, String name, String demo, String message, String downloadUrl, String feedback) {
         this.id = id;
         this.name = name;
-        this.email = email;
         this.message = message;
         this.demo = demo;
         this.downloadUrl = downloadUrl;
@@ -94,13 +92,6 @@ public class Demo {
         this.demo = demo;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getDownloadUrl() {
         return downloadUrl;

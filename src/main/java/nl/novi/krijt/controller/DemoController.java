@@ -62,7 +62,7 @@ public class DemoController {
         return new ResponseEntity<>(demo, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("uploads/download/{fileName}")
     public ResponseEntity downloadFileFromLocal(@PathVariable String fileName) {
         Path path = Paths.get( System.getProperty("user.dir") + "/fileUploads/" + fileName);

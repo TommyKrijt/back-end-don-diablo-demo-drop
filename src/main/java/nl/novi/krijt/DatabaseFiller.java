@@ -9,14 +9,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * In deze klasse voegen we twee gebruikers met één rol toe:
- * admin, admin@admin.nl, 123456, ROL: admin
- * user, user@user.nl, 123456, ROL: user
- *
- * UITLEG COMPONENT ANNOTATIE
- * http://zetcode.com/springboot/component/
- */
 @Component
 public class DatabaseFiller implements CommandLineRunner {
 

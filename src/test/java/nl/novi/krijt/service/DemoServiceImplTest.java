@@ -36,7 +36,7 @@ public class DemoServiceImplTest {
         Demo d = new Demo();
         d.setId(1L);
 
-        Demo demo1 = new Demo(1L, "name", "email", "message", "demo", "downlaodURL", "feedback");
+        Demo demo1 = new Demo(1L, "name", "message", "demo", "downlaodURL", "feedback");
         Mockito
                 .when(demoRepository.existsById(anyLong()))
                 .thenReturn(true);
@@ -55,7 +55,7 @@ public class DemoServiceImplTest {
         Demo d = new Demo();
         d.setId(1L);
 
-        Demo demo1 = new Demo(1L, "name", "email", "message", "demo", "downlaodURL", "feedback");
+        Demo demo1 = new Demo(1L, "name", "message", "demo", "downlaodURL", "feedback");
         Mockito
                 .when(demoRepository.existsById(anyLong()))
                 .thenReturn(true);

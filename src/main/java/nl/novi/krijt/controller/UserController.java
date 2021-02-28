@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> findUserByToken(@RequestHeader Map<String, String> headers) {
         return userService.findUserByToken(headers.get("authorization"));
     }
