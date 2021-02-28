@@ -34,6 +34,7 @@ public class Demo {
     private String message;
     private String downloadUrl;
     private String feedback;
+    private String uploadDir;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -115,6 +116,14 @@ public class Demo {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    public String getUploadDir() {
+        return uploadDir;
+    }
+
+    public void setUploadDir(String uploadDir) {
+        this.uploadDir = uploadDir;
     }
 }
 

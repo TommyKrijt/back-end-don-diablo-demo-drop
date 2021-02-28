@@ -35,6 +35,13 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> findUserByToken(@RequestHeader Map<String, String> headers) {
+        return userService.findUserByToken(headers.get("authorization"));
+    }
+
+
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<Object> getUserById(@PathVariable("id") long id) {
         User user = userService.getUserById(id);

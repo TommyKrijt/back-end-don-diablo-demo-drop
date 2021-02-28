@@ -50,7 +50,7 @@ public class DemoServiceImplTest {
     }
 
     @Test
-    void updateDemoTest() {
+    void updateDemoShouldReturnOK() {
         User user = new User();
         Demo d = new Demo();
         d.setId(1L);

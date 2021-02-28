@@ -51,6 +51,7 @@ public class DemoServiceImpl implements DemoService{
         demo.setMessage(message);
         demo.setUser(optionalUser.get());
         demo.setDownloadUrl(fileDownloadUri);
+        demo.setUploadDir(uploadDir + file.getOriginalFilename());
 
         demoRepository.save(demo).getId();
         return ResponseEntity.ok(new DemoResponse("Demo uploaded successfully!"));
